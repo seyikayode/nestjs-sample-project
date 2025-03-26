@@ -45,9 +45,15 @@ export class SongsService {
         return await this.songRepository.delete(id);
     }
 
-    // async update(id: number, recordToUpdate: UpdateSongDTO): Promise<UpdateResult> {
-    //     return await this.songRepository.update(id, recordToUpdate);
-    // }
+    async update(id: number, recordToUpdate: UpdateSongDTO): Promise<UpdateResult> {
+        return await this.songRepository.update(id, {
+            title: recordToUpdate.title,
+            artistes: recordToUpdate.artistes,
+            releasedDate: recordToUpdate.releasedDate,
+            duration: recordToUpdate.duration,
+            lyrics: recordToUpdate.lyrics
+        });
+    }
 
     async paginate(options: IPaginationOptions): Promise<Pagination<Song>> {
         const queryBuilder = this.songRepository.createQueryBuilder('c');

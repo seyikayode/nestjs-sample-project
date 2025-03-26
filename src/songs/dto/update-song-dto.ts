@@ -8,7 +8,7 @@ export class UpdateSongDTO {
     @IsOptional()
     @IsNumber({}, { each: true })
     @IsArray()
-    readonly artistes: number[]
+    readonly artistes
 
     @IsOptional()
     @IsDateString()
