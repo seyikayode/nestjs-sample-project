@@ -15,6 +15,9 @@ class EnvironmentVariables {
   @IsNumber()
   PORT: number;
 
+  @IsString()
+  DB_URL: string;
+
   @IsNumber()
   DB_PORT: number;
 

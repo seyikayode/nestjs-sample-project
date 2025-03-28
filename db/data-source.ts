@@ -6,12 +6,15 @@ import { Song } from "src/songs/song.entity";
 import { User } from "src/users/user.entity";
 import { DataSource, DataSourceOptions } from "typeorm";
 
+require('dotenv').config();
+
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     imports: [ConfigModule],
     inject: [ConfigService],
     useFactory: async (configService: ConfigService): Promise<TypeOrmModuleOptions> => {
         return {
             type: 'postgres',
+            url: configService.get<string>('dbUrl'),
             database: configService.get<string>('dbName'),
             host: configService.get<string>('dbHost'),
             port: configService.get<number>('dbPort'),
@@ -26,6 +29,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
 
 export const dataSourceOptions: DataSourceOptions = {
     type: 'postgres',
+    url: process.env.DB_URL,
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: parseInt(process.env.DB_PORT || ''),
