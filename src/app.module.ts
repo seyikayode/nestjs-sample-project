@@ -18,7 +18,7 @@ import { validateEnv } from 'env.validation';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
+      envFilePath: [`${process.cwd()}/.env.${process.env.NODE_ENV}`],
       isGlobal: true,
       load: [configuration],
       validate: validateEnv
@@ -35,12 +35,4 @@ import { validateEnv } from 'env.validation';
   providers: [AppService],
 })
 
-export class AppModule implements NestModule {
-constructor(private dataSource: DataSource) {
-  console.log('dbName', dataSource.driver.database)
-}
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('songs')
-  }
-}
+export class AppModule {}
